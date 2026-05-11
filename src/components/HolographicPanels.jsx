@@ -1,7 +1,7 @@
 import React from 'react';
 import { Html, Float, Text } from '@react-three/drei';
 import { Activity, Heart, Wind, Thermometer } from 'lucide-react';
-import { motion } from 'framer-motion-3d';
+import { motion } from 'framer-motion';
 
 const HolographicPanel = ({ position, title, value, unit, icon: Icon, color = '#22d3ee' }) => {
   return (
