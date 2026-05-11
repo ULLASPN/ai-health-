@@ -2,24 +2,68 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NEUROSCAN AI 3D | Futuristic Medical OS</title>
-    <meta name="description" content="Fully immersive 3D AI healthcare intelligence platform." />
+    <title>NEUROSCAN AI 3D | Futuristic Medical Intelligence OS</title>
+    <meta name="description" content="Ultra-immersive 3D AI healthcare intelligence platform — next-generation hospital operating system from 2045." />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
     <style>
-      body {
-        margin: 0;
-        background: #000;
-        overflow: hidden;
-        color: white;
+      body { margin: 0; background: #020617; overflow: hidden; }
+      #root { width: 100vw; height: 100vh; }
+      /* Boot screen */
+      .boot-screen {
+        position: fixed; inset: 0; z-index: 9999;
+        background: #020617;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        font-family: 'Share Tech Mono', monospace;
+        color: #00f2ff;
+        transition: opacity 0.8s ease;
       }
+      .boot-screen.hidden { opacity: 0; pointer-events: none; }
+      .boot-logo { font-size: 2.5rem; margin-bottom: 20px; text-shadow: 0 0 30px #00f2ff; animation: bootPulse 1.5s ease-in-out infinite; }
+      .boot-title { font-size: 1.2rem; letter-spacing: 8px; margin-bottom: 8px; text-shadow: 0 0 15px #00f2ff; }
+      .boot-sub { font-size: 0.7rem; letter-spacing: 3px; color: rgba(0,242,255,0.5); margin-bottom: 40px; }
+      .boot-bar-container { width: 300px; height: 3px; background: rgba(0,242,255,0.1); border-radius: 3px; overflow: hidden; }
+      .boot-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #00f2ff, #7000ff, #00ffaa); border-radius: 3px; transition: width 0.3s ease; }
+      .boot-status { font-size: 0.6rem; letter-spacing: 2px; color: rgba(0,242,255,0.4); margin-top: 16px; }
+      @keyframes bootPulse { 0%,100%{opacity:0.5;transform:scale(1)} 50%{opacity:1;transform:scale(1.05)} }
     </style>
   </head>
   <body>
+    <div id="boot" class="boot-screen">
+      <div class="boot-logo">✦</div>
+      <div class="boot-title">NEUROSCAN AI 3D</div>
+      <div class="boot-sub">MEDICAL INTELLIGENCE CORE</div>
+      <div class="boot-bar-container"><div id="boot-bar" class="boot-bar"></div></div>
+      <div id="boot-status" class="boot-status">INITIALIZING NEURAL SYSTEMS...</div>
+    </div>
     <div id="root"></div>
+    <script>
+      const msgs = [
+        'INITIALIZING NEURAL SYSTEMS...',
+        'LOADING 3D MEDICAL CORE...',
+        'CONNECTING AI SUBSYSTEMS...',
+        'SYNCING PATIENT DATABASES...',
+        'ACTIVATING HOLOGRAPHIC DISPLAYS...',
+        'CALIBRATING VOICE INTERFACE...',
+        'SYSTEM READY'
+      ];
+      let step = 0;
+      const iv = setInterval(() => {
+        step++;
+        const pct = Math.min(step * 16, 100);
+        document.getElementById('boot-bar').style.width = pct + '%';
+        document.getElementById('boot-status').textContent = msgs[Math.min(step, msgs.length - 1)];
+        if (step >= 7) {
+          clearInterval(iv);
+          setTimeout(() => document.getElementById('boot').classList.add('hidden'), 400);
+          setTimeout(() => document.getElementById('boot').remove(), 1200);
+        }
+      }, 400);
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
